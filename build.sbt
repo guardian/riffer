@@ -1,4 +1,4 @@
-name := "jr-microservice-workshop"
+name := "rb-riffer"
 
 organization := "com.gu"
 
