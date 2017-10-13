@@ -22,7 +22,7 @@ deployments:
       prependStackToCloudFormationStackName: false
       cloudFormationStackName: rb-riffer-upload
       templatePath: cfn.yaml
-    dependencies: [jr-microservice-upload]
+    dependencies: [rb-riffer-upload]
   rb-riffer-update:
     template: rb-riffer
     actions: [updateLambda]
