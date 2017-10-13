@@ -1,19 +1,29 @@
 stacks: [playground]
 regions: [eu-west-1]
-
-deployments:
-  jr-microservice-workshop:
+templates:
+  rb-riffer:
     type: aws-lambda
+    app: rb-riffer
+    contentDirectory: rb-riffer
     parameters:
       bucket: gu-jr-microservice-workshop-dist
-      functionNames: [jr-microservice-workshop-]
-      fileName: jr-microservice-workshop.zip
+      functionNames: [rb-riffer-]
+      fileName: rb-riffer.zip
       prefixStack: false
-    dependencies: [jr-microservice-workshop-cfn]
-  jr-microservice-workshop-cfn:
+
+deployments:
+  rb-riffer-upload:
+    template: rb-riffer
+    actions: [uploadLambda]
+  rb-riffer-cfn:
     type: cloud-formation
-    app: jr-microservice-workshop
+    app: rb-riffer
     parameters:
       prependStackToCloudFormationStackName: false
-      cloudFormationStackName: jr-microservice-workshop
+      cloudFormationStackName: rb-riffer-upload
       templatePath: cfn.yaml
+    dependencies: [jr-microservice-upload]
+  rb-riffer-update:
+    template: rb-riffer
+    actions: [updateLambda]
+    dependencies: [rb-riffer-cfn]
